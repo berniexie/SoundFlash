@@ -11,9 +11,20 @@
 
 @interface ViewController ()<MPMediaPickerControllerDelegate>
 
+
 @end
 
 @implementation ViewController
+
+-(void) viewDidLoad{
+    [super viewDidLoad];
+    songArray= [[NSMutableArray alloc]init];
+ 
+}
+
+-(void) didReceiveMemoryWarning{
+    [super didReceiveMemoryWarning];
+}
 
 - (IBAction)handleButtonClicked:(id)sender {
   MPMediaPickerController *mediaPickerController = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeMusic];
@@ -27,11 +38,27 @@
 
 - (void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection {
   // Handle
-  NSLog(@"%@", mediaItemCollection);
+
+    
+    //adds the song the user selected to the songArray
+      MPMediaItem *song= [mediaItemCollection.items objectAtIndex:0];
+     [songArray addObject:song];
+    
+    
+    
+   // [songArray addObject: [mediaItemCollection.items objectAtIndex:0]];
+    
+    MPMediaItem *songTitle = [songArray objectAtIndex:0];
+    
   
-  for (MPMediaItem *mediaItem in mediaItemCollection.items) {
+    
+ // NSString *songTitle= [song valueForProperty:MPMediaItemPropertyTitle];
+        
+    NSLog(@"%@", songTitle);
+  
+  /*for (MPMediaItem *mediaItem in mediaItemCollection.items) {
     NSLog(@"%@", mediaItem.assetURL);
-  }
+  }*/
 }
 
 - (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
