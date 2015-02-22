@@ -13,7 +13,7 @@
 @interface ViewController ()<MPMediaPickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *currentSongLabel;
 @property MPMediaItem *chosenSong;
-@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
+@property ( nonatomic, retain) AVAudioPlayer *audioPlayer;
 
 
 @end
@@ -24,12 +24,7 @@
     [super viewDidLoad];
     songArray= [[NSMutableArray alloc]init];
   
-    NSThread* evtThread = [ [NSThread alloc] initWithTarget:self
-                                                 selector:@selector(update)
-                                                   object:nil ];
-  
-    [evtThread start];
-    NSLog(@"Thread created");
+   
 }
 
 -(void) didReceiveMemoryWarning{
@@ -60,16 +55,25 @@
     MPMediaItem *selectedSong = [songArray objectAtIndex:songArray.count-1];
     
     NSString *songTitle= [selectedSong valueForProperty:MPMediaItemPropertyTitle];
+    NSURL *songURL= [selectedSong valueForProperty:MPMediaItemPropertyAssetURL];
     
     self.chosenSong = selectedSong;
   
-    [self updateLabel:songTitle];
-    [self configureAudioPlayer];
 
-    NSLog(@"should be playing music %@", songTitle);
-    NSLog(@"%d", [self.audioPlayer play]);
+
 
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self updateLabel:songTitle];
+     [self playSong:songURL];
+    
+    NSThread* evtThread = [ [NSThread alloc] initWithTarget:self
+                                                   selector:@selector(update)
+                                                     object:nil ];
+    
+    [evtThread start];
+    NSLog(@"Thread created");
+
 }
 
 - (void) update {
@@ -77,7 +81,7 @@
     NSLog(@"Entering thread");
     while (true){
       if(_audioPlayer.playing){
-        [NSThread sleepForTimeInterval:0.5];
+        [NSThread sleepForTimeInterval:1.0];
         _audioPlayer.meteringEnabled = YES;
         // Sets it so that the meters update
         [_audioPlayer updateMeters];
@@ -89,17 +93,69 @@
         }
         power /= [_audioPlayer numberOfChannels];
         power = 120+power;
-        NSLog(@"%f", power);
+     
+     //   NSLog(@"%f", power);
+          //puts it back on the main queue thread so you can update UIView
+          dispatch_async(dispatch_get_main_queue(), ^ {  [self updateBackgoundColor:power]; });
+     
+          
       }
     }
 }
 
+-(void)updateBackgoundColor:(float) power
+{
+  
+  //  NSLog(@"power %f", power);
+    if(power <100)
+    {
+        [self.view setBackgroundColor:[UIColor blackColor]];
+        NSLog(@"Enter level 1");
+    }
+    else if(power >=100 && power<102)
+    {
+
+        [self.view setBackgroundColor:[UIColor purpleColor]];
+               NSLog(@"Enter level 2");
+ 
+    }
+    else if(power >=102 && power <104)
+    {
+        [self.view setBackgroundColor:[UIColor blueColor]];
+               NSLog(@"Enter level 3");
+    }
+    else if(power >=104 && power<106)
+    {
+
+        [self.view setBackgroundColor:[UIColor greenColor]];
+               NSLog(@"Enter level 4");
+    }
+    else if(power>= 106 && power<108)
+    {
+        [self.view setBackgroundColor:[UIColor yellowColor]];
+        NSLog(@"Enter level 5");
+    }
+    else if(power >=108 && power <110)
+    {
+
+        [self.view setBackgroundColor:[UIColor orangeColor]];
+               NSLog(@"Enter level 6");
+
+    }
+    else
+    {
+         NSLog(@"Enter level 7");
+        [self.view setBackgroundColor:[UIColor redColor]];
+    }
+}
+
+/*
 - (void)configureAudioPlayer {
-  NSURL *audioURL = self.chosenSong.assetURL;
-  //Sets the url of the song to be played and initializes the audioplayer
+    NSURL *audioURL = [self.chosenSong valueForProperty:MPMediaItemPropertyAssetURL];
+    //Sets the url of the song to be played and initializes the audioplayer
   self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioURL error:nil];
   [_audioPlayer setNumberOfLoops:1];
-}
+}*/
 
 -(void)updateLabel: (NSString *) songTitle
 {
@@ -107,9 +163,17 @@
     [ self.currentSongLabel setText:songTitle];
 }
 
--(void) playSong:(NSString *)songTitle
+-(void) playSong:(NSURL *) songURL
 {
-   
+  
+  
+    
+    //can't declare AVPlayer here as a local variable because when you call player play
+    //the method then ends and does not keep going.  So make it a property because
+    //when the method ends, the player will still keep on going
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:songURL error:nil];
+    [self.audioPlayer play];
+    
 }
 
 - (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
