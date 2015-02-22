@@ -10,6 +10,8 @@
 @import MediaPlayer;
 
 @interface ViewController ()<MPMediaPickerControllerDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *currentSongLabel;
+
 
 
 @end
@@ -19,6 +21,7 @@
 -(void) viewDidLoad{
     [super viewDidLoad];
     songArray= [[NSMutableArray alloc]init];
+ 
  
 }
 
@@ -42,23 +45,52 @@
     
     //adds the song the user selected to the songArray
       MPMediaItem *song= [mediaItemCollection.items objectAtIndex:0];
+    
      [songArray addObject:song];
     
+
+    
+    //get the last song(most recently added song in the array)
+    MPMediaItem *selectedSong = [songArray objectAtIndex:songArray.count-1];
+    
+    NSString *songTitle= [selectedSong valueForProperty:MPMediaItemPropertyTitle];
     
     
-   // [songArray addObject: [mediaItemCollection.items objectAtIndex:0]];
     
-    MPMediaItem *songTitle = [songArray objectAtIndex:0];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
+    [self updateLabel:songTitle];
+
   
     
  // NSString *songTitle= [song valueForProperty:MPMediaItemPropertyTitle];
-        
-    NSLog(@"%@", songTitle);
-  
+    
+   //  NSLog(@"%@", songTitle);
+
   /*for (MPMediaItem *mediaItem in mediaItemCollection.items) {
     NSLog(@"%@", mediaItem.assetURL);
   }*/
+}
+
+-(void)updateLabel: (NSString *) songTitle
+{
+    
+    [ self.currentSongLabel setText:songTitle];
+  
+    /*  if(songArray.count !=0)
+    {
+        MPMediaItem *song = [songArray objectAtIndex:0];
+        
+        NSString *songTitle= [song valueForProperty:MPMediaItemPropertyTitle];
+        
+        [ self.currentSongLabel setText:songTitle];
+        
+    }*/
+}
+
+-(void) playSong:(NSString *)songTitle
+{
+   
 }
 
 - (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
@@ -66,6 +98,9 @@
   NSLog(@"cancelled");
   
   [self dismissViewControllerAnimated:YES completion:nil];
+    
+    
+    
 }
 
 @end

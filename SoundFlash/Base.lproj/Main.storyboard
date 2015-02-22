@@ -26,6 +26,12 @@
                                     <action selector="handleButtonClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="WzU-3f-oSI"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Song: none" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8c-Vq-3wZ">
+                                <rect key="frame" x="16" y="20" width="584" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -34,6 +40,9 @@
                             <constraint firstAttribute="centerX" secondItem="HF2-gt-8De" secondAttribute="centerX" id="Vy8-4n-0zq"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="currentSongLabel" destination="L8c-Vq-3wZ" id="Rxc-yf-wAo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
