@@ -7,11 +7,13 @@
 //
 
 #import "ViewController.h"
+
 @import MediaPlayer;
 
 @interface ViewController ()<MPMediaPickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *currentSongLabel;
-
+@property MPMediaItem *chosenSong;
+@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
 
 
 @end
@@ -21,8 +23,6 @@
 -(void) viewDidLoad{
     [super viewDidLoad];
     songArray= [[NSMutableArray alloc]init];
- 
- 
 }
 
 -(void) didReceiveMemoryWarning{
@@ -47,7 +47,6 @@
       MPMediaItem *song= [mediaItemCollection.items objectAtIndex:0];
     
      [songArray addObject:song];
-    
 
     
     //get the last song(most recently added song in the array)
@@ -55,37 +54,28 @@
     
     NSString *songTitle= [selectedSong valueForProperty:MPMediaItemPropertyTitle];
     
-    
-    
+    self.chosenSong = selectedSong;
+  
     [self dismissViewControllerAnimated:YES completion:nil];
     
     [self updateLabel:songTitle];
+    [self configureAudioPlayer];
 
-  
-    
- // NSString *songTitle= [song valueForProperty:MPMediaItemPropertyTitle];
-    
-   //  NSLog(@"%@", songTitle);
+    NSLog(@"should be playing music %@", songTitle);
+    NSLog(@"%d", [self.audioPlayer play]);
+}
 
-  /*for (MPMediaItem *mediaItem in mediaItemCollection.items) {
-    NSLog(@"%@", mediaItem.assetURL);
-  }*/
+- (void)configureAudioPlayer {
+  NSURL *audioURL = self.chosenSong.assetURL;
+  //Sets the url of the song to be played and initializes the audioplayer
+  self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioURL error:nil];
+  [_audioPlayer setNumberOfLoops:-1];
 }
 
 -(void)updateLabel: (NSString *) songTitle
 {
     
     [ self.currentSongLabel setText:songTitle];
-  
-    /*  if(songArray.count !=0)
-    {
-        MPMediaItem *song = [songArray objectAtIndex:0];
-        
-        NSString *songTitle= [song valueForProperty:MPMediaItemPropertyTitle];
-        
-        [ self.currentSongLabel setText:songTitle];
-        
-    }*/
 }
 
 -(void) playSong:(NSString *)songTitle
