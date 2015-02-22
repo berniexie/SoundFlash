@@ -23,6 +23,13 @@
 -(void) viewDidLoad{
     [super viewDidLoad];
     songArray= [[NSMutableArray alloc]init];
+  
+    NSThread* evtThread = [ [NSThread alloc] initWithTarget:self
+                                                 selector:@selector(update)
+                                                   object:nil ];
+  
+    [evtThread start];
+    NSLog(@"Thread created");
 }
 
 -(void) didReceiveMemoryWarning{
@@ -56,20 +63,42 @@
     
     self.chosenSong = selectedSong;
   
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
     [self updateLabel:songTitle];
     [self configureAudioPlayer];
 
     NSLog(@"should be playing music %@", songTitle);
     NSLog(@"%d", [self.audioPlayer play]);
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) update {
+    //while the song is playing
+    NSLog(@"Entering thread");
+    while (true){
+      if(_audioPlayer.playing){
+        [NSThread sleepForTimeInterval:0.5];
+        _audioPlayer.meteringEnabled = YES;
+        // Sets it so that the meters update
+        [_audioPlayer updateMeters];
+        
+        // Calculates the power level
+        float power = 0.0f;
+        for (int i = 0; i < [_audioPlayer numberOfChannels]; i++) {
+          power += [_audioPlayer averagePowerForChannel:i];
+        }
+        power /= [_audioPlayer numberOfChannels];
+        power = 120+power;
+        NSLog(@"%f", power);
+      }
+    }
 }
 
 - (void)configureAudioPlayer {
   NSURL *audioURL = self.chosenSong.assetURL;
   //Sets the url of the song to be played and initializes the audioplayer
   self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioURL error:nil];
-  [_audioPlayer setNumberOfLoops:-1];
+  [_audioPlayer setNumberOfLoops:1];
 }
 
 -(void)updateLabel: (NSString *) songTitle
