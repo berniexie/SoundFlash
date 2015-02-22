@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
+
+@import MediaPlayer;
 
 @interface ViewController : UIViewController
 
-
+//- (IBAction)buttonPressed:(id)sender;
 @end
 NSMutableArray *songArray;
 

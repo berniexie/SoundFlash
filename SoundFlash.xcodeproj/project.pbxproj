@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		87B5309F1A9A01B3003B1D81 /* PlaySongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B5309E1A9A01B3003B1D81 /* PlaySongViewController.m */; };
 		912444701A993DB600784725 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9124446F1A993DB600784725 /* main.m */; };
 		912444731A993DB600784725 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 912444721A993DB600784725 /* AppDelegate.m */; };
 		912444761A993DB600784725 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 912444751A993DB600784725 /* ViewController.m */; };
@@ -28,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		87B5309D1A9A01B3003B1D81 /* PlaySongViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaySongViewController.h; sourceTree = "<group>"; };
+		87B5309E1A9A01B3003B1D81 /* PlaySongViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaySongViewController.m; sourceTree = "<group>"; };
 		9124446A1A993DB600784725 /* SoundFlash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundFlash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9124446E1A993DB600784725 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9124446F1A993DB600784725 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -88,6 +91,8 @@
 				912444741A993DB600784725 /* ViewController.h */,
 				912444751A993DB600784725 /* ViewController.m */,
 				912444771A993DB600784725 /* Main.storyboard */,
+				87B5309D1A9A01B3003B1D81 /* PlaySongViewController.h */,
+				87B5309E1A9A01B3003B1D81 /* PlaySongViewController.m */,
 				9124447A1A993DB600784725 /* Images.xcassets */,
 				9124447C1A993DB600784725 /* LaunchScreen.xib */,
 				916E93011A99B93300304022 /* iTunesArtwork@2x copy.png */,
@@ -227,6 +232,7 @@
 				912444761A993DB600784725 /* ViewController.m in Sources */,
 				912444731A993DB600784725 /* AppDelegate.m in Sources */,
 				912444701A993DB600784725 /* main.m in Sources */,
+				87B5309F1A9A01B3003B1D81 /* PlaySongViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
