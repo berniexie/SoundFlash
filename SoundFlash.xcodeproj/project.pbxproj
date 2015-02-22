@@ -14,6 +14,7 @@
 		9124447B1A993DB600784725 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9124447A1A993DB600784725 /* Images.xcassets */; };
 		9124447E1A993DB600784725 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9124447C1A993DB600784725 /* LaunchScreen.xib */; };
 		9124448A1A993DB700784725 /* SoundFlashTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 912444891A993DB700784725 /* SoundFlashTests.m */; };
+		916E93021A99B93300304022 /* iTunesArtwork@2x copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 916E93011A99B93300304022 /* iTunesArtwork@2x copy.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		912444831A993DB600784725 /* SoundFlashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundFlashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		912444881A993DB600784725 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		912444891A993DB700784725 /* SoundFlashTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundFlashTests.m; sourceTree = "<group>"; };
+		916E93011A99B93300304022 /* iTunesArtwork@2x copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x copy.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		9124446C1A993DB600784725 /* SoundFlash */ = {
 			isa = PBXGroup;
 			children = (
+				916E93011A99B93300304022 /* iTunesArtwork@2x copy.png */,
 				912444711A993DB600784725 /* AppDelegate.h */,
 				912444721A993DB600784725 /* AppDelegate.m */,
 				912444741A993DB600784725 /* ViewController.h */,
@@ -203,6 +206,7 @@
 				912444791A993DB600784725 /* Main.storyboard in Resources */,
 				9124447E1A993DB600784725 /* LaunchScreen.xib in Resources */,
 				9124447B1A993DB600784725 /* Images.xcassets in Resources */,
+				916E93021A99B93300304022 /* iTunesArtwork@2x copy.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
