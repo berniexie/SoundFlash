@@ -60,7 +60,7 @@
     while (true){
         if(_audioPlayer.playing)
         {
-            [NSThread sleepForTimeInterval:1.25];
+            [NSThread sleepForTimeInterval:0.1];
             
             _audioPlayer.meteringEnabled = YES;
             // Sets it so that the meters update
